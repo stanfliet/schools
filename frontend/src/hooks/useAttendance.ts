@@ -35,7 +35,8 @@ export function useAttendance(options?: { autoFetch?: boolean }) {
     }
   }, []);
 
-  const markAttendance = useCallback(async (entries: { learner_id: string; date: string; status: string; method?: string }[]) => {
+  const markAttendance = useCallback(
+    async (entries: { learner_id: string; learner_name?: string; grade?: string; date: string; status: string; method?: string; marked_by?: string }[]) => {
     setLoading(true);
     setError(null);
     try {

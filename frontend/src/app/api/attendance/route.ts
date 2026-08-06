@@ -32,10 +32,10 @@ export async function GET(request: Request) {
     const limit = Math.min(parseInt(searchParams.get("limit") || "100"), 500);
 
     const sb = createClient();
-    let query = sb.from("attendance_records").select("*, learners!inner(name, grade)");
+    let query = sb.from("attendance_records").select("*");
 
     if (date) query = query.eq("date", date);
-    if (grade) query = query.eq("learners.grade", grade);
+    if (grade) query = query.eq("grade", grade);
     if (status) query = query.eq("status", status);
     if (learnerId) query = query.eq("learner_id", learnerId);
 
@@ -57,8 +57,8 @@ export async function GET(request: Request) {
       stats: { present, absent, late, excused, total, percentage },
       learners: records?.map((r: any) => ({
         id: r.learner_id,
-        name: r.learners?.name || "Unknown",
-        grade: r.learners?.grade || "",
+        name: r.learner_name || r.learner_id,
+        grade: r.grade || "",
         status: r.status,
       })) || [],
     });
@@ -83,9 +83,12 @@ export async function POST(request: Request) {
       .upsert(
         entries.map((e: any) => ({
           learner_id: e.learner_id,
+          learner_name: e.learner_name ?? null,
+          grade: e.grade ?? null,
           date: e.date,
           status: e.status,
           method: e.method || "roll-call",
+          marked_by: e.marked_by ?? null,
         })),
         { onConflict: "learner_id,date", ignoreDuplicates: false }
       )

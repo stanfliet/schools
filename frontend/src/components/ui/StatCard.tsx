@@ -8,6 +8,7 @@ interface StatCardProps {
   changeType?: "increase" | "decrease" | "neutral";
   accent?: "cyan" | "green" | "amber" | "red" | "purple" | "pink";
   trend?: number;
+  icon?: React.ReactNode;
 }
 
 const accentBorders: Record<string, string> = {
@@ -19,10 +20,13 @@ const changeColors: Record<string, string> = {
   increase: "text-neon-green", decrease: "text-neon-red", neutral: "text-gray-500",
 };
 
-export function StatCard({ label, value, change, changeType = "neutral", accent = "cyan", trend }: StatCardProps) {
+export function StatCard({ label, value, change, changeType = "neutral", accent = "cyan", trend, icon }: StatCardProps) {
   return (
     <div className={cn("rounded-xl border border-cyber-border bg-cyber-card p-5 border-l-4 transition-all duration-300 hover:border-l-neon-cyan", accentBorders[accent])}>
-      <p className="text-[11px] text-gray-500 uppercase tracking-widest font-medium mb-1">{label}</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[11px] text-gray-500 uppercase tracking-widest font-medium mb-1">{label}</p>
+        {icon && <span className="text-gray-600">{icon}</span>}
+      </div>
       <p className="text-2xl font-bold font-mono text-gray-100 mb-1">{value}</p>
       {change && <p className={cn("text-[11px]", changeColors[changeType])}>{change}</p>}
       {trend !== undefined && (

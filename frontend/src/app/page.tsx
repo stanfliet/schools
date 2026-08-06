@@ -54,6 +54,20 @@ export default function Home() {
           </Link>
         </div>
 
+        <div className="mb-16">
+          <h2 className="text-sm font-medium text-gray-400 mb-6 uppercase tracking-widest">Getting Started — Demo & User Guide</h2>
+          <div className="mx-auto max-w-3xl rounded-xl overflow-hidden border border-neon-cyan/25 bg-cyber-card shadow-[0_0_40px_rgba(0,229,255,0.08)]">
+            <video controls preload="metadata" playsInline className="w-full aspect-video bg-black">
+              <source src="/demo/schoolnet-demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p className="px-4 py-3 text-left text-[11px] text-gray-500 border-t border-cyber-border">
+              Watch the narrated walkthrough: how to start the app, log in, register attendance
+              (learner name + grade), and read truancy &amp; clinic alerts. Full text guide: <code className="text-neon-cyan">USER_GUIDE.md</code> in the repo root.
+            </p>
+          </div>
+        </div>
+
         <h2 className="text-sm font-medium text-gray-400 mb-6 uppercase tracking-widest">Full Platform Capabilities</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {features.map((f, i) => (

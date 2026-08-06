@@ -7,6 +7,7 @@ interface StatusBadgeProps {
   dot?: boolean;
   pulsing?: boolean;
   size?: "sm" | "md";
+  icon?: React.ReactNode;
 }
 
 const variants: Record<string, string> = {
@@ -24,10 +25,11 @@ const dotColors: Record<string, string> = {
   red: "bg-neon-red", purple: "bg-neon-purple", pink: "bg-neon-pink", blue: "bg-neon-blue",
 };
 
-export function StatusBadge({ label, variant = "cyan", dot, pulsing, size = "sm" }: StatusBadgeProps) {
+export function StatusBadge({ label, variant = "cyan", dot, pulsing, size = "sm", icon }: StatusBadgeProps) {
   return (
     <span className={cn("inline-flex items-center gap-1.5 rounded-full font-medium", variants[variant], size === "sm" ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs")}>
       {dot && <span className={cn("w-1.5 h-1.5 rounded-full", dotColors[variant], pulsing && "animate-pulse")} />}
+      {icon}
       {label}
     </span>
   );
