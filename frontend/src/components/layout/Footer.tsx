@@ -27,9 +27,10 @@ export function Footer() {
           <div>
             <h4 className="text-white font-medium mb-3">Contact</h4>
             <ul className="space-y-2 text-sm">
-              <li>support@schoolnet.gov.za</li>
-              <li>0800 SCHOOLNET</li>
-              <li>Department of Basic Education</li>
+              <li>Michael Stanfliet</li>
+              <li><a href="mailto:k2020@contractor.net" className="hover:text-white transition-colors">k2020@contractor.net</a></li>
+              <li><a href="tel:+27615051013" className="hover:text-white transition-colors">061 505 1013</a></li>
+              <li>Paarl, Western Cape</li>
             </ul>
           </div>
         </div>
