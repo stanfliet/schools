@@ -1,0 +1,17 @@
+{
+  "remoteName": "origin",
+  "projects": [
+    {
+      "id": "prj_dQSa4hj4DOqJzxijsYC7D0QYJFMi",
+      "name": "schools-4bbq",
+      "directory": "frontend",
+      "orgId": "team_KehhJIMH5BAGdTDVNjSYlcir"
+    },
+    {
+      "id": "prj_KUfubgVuoTUtXfunWI0R0GofDJtg",
+      "name": "schoolss",
+      "directory": ".",
+      "orgId": "team_KehhJIMH5BAGdTDVNjSYlcir"
+    }
+  ]
+}

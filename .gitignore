@@ -2,15 +2,7 @@ node_modules/
 .next/
 .env
 .env.local
-*.log
-.DS_Store
-dist/
-.cache/
-__pycache__/
-*.pyc.elastic-copilot/
-.elastic-copilot/
 
-.vercel
 .env*
 # Ignore frontend environment files
 frontend/.env
