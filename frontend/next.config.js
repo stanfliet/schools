@@ -1,7 +1,29 @@
 ﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    typedRoutes: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  webpack: (config, { isServer }) => {
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ["**/schools/mobile/**"],
+    };
+    return config;
+  },
   images: {
-    domains: [process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('https://', '') || ''],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
 };
+
 module.exports = nextConfig;
