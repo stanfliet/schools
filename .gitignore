@@ -11,3 +11,6 @@ __pycache__/
 ql
 .elastic-copilot/
 ql
+
+.vercel
+.env*
