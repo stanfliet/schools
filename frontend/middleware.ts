@@ -1,11 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const publicPaths = ["/login", "/auth/callback", "/_next", "/api"];
+const publicPaths = ["/login", "/auth/callback", "/_next", "/api", "/about", "/contact", "/privacy", "/terms"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (publicPaths.some((p) => pathname.startsWith(p))) return NextResponse.next();
+  // Root (landing page) and quick-link pages are public; everything else requires auth.
+  if (pathname === "/" || publicPaths.some((p) => pathname.startsWith(p))) return NextResponse.next();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
