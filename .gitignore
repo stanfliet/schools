@@ -8,9 +8,10 @@ dist/
 .cache/
 __pycache__/
 *.pyc.elastic-copilot/
-ql
 .elastic-copilot/
-ql
 
 .vercel
 .env*
+# Ignore frontend environment files
+frontend/.env
+frontend/.env.local
