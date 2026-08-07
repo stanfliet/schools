@@ -1,17 +1,17 @@
 # Dependency Matrix
 
-*Generated: 2026-08-07T07:08:47.228Z*
+*Generated: 2026-08-07T15:14:49.554Z*
 
 ## Summary
 
-- Files analyzed: 276
-- File types: ts, tsx, js
+- Files analyzed: 292
+- File types: ts, js, tsx
 
 ## File Type Distribution
 
-- 85 ts files
-- 94 tsx files
-- 97 js files
+- 89 ts files
+- 105 js files
+- 98 tsx files
 
 ## Key Dependencies by Type
 
@@ -24,10 +24,14 @@ Top dependencies:
 - @supabase/supabase-js
 - https://deno.land/std@0.208.0/csv/parse.ts
 - https://deno.land/std@0.208.0/crypto/mod.ts
+- @capacitor/cli
 - tailwindcss
 - clsx
 - tailwind-merge
-- @supabase/ssr
+
+### JS
+
+No common dependencies found
 
 ### TSX
 
@@ -40,8 +44,4 @@ Top dependencies:
 - @/components/ui/NeonCard
 - @/components/ui/StatusBadge
 - @/components/ui/NeonButton
-
-### JS
-
-No common dependencies found
 

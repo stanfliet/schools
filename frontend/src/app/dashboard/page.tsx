@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createBrowserClient } from "@supabase/ssr";
 import { LayoutDashboard, Users, CalendarCheck, AlertTriangle, Activity, TrendingUp, Loader2 } from "lucide-react";
+import { getCurrentProfile, getSupabaseClient } from "@/lib/supabase";
 
 interface DashboardStats {
   totalLearners: number;
@@ -33,35 +33,40 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-
   useEffect(() => {
     async function load() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { router.push("/login"); return; }
+      const supabase = getSupabaseClient();
+      if (!supabase) {
+        setStats({ totalLearners: 0, presentToday: 0, absentToday: 0, truancyAlerts: 0, attendanceRate: 0 });
+        setLoading(false);
+        return;
+      }
 
-      const { data: p } = await supabase.from("profiles").select("*").eq("id", user.id).single();
-      setProfile(p);
+      const profile = await getCurrentProfile();
+      if (!profile?.id) {
+        router.push("/login");
+        return;
+      }
+
+      setProfile(profile);
 
       const { count: totalLearners } = await supabase
         .from("learners").select("*", { count: "exact", head: true })
-        .eq("school_id", p?.school_id);
+        .eq("school_id", profile.school_id);
 
       const today = new Date().toISOString().split("T")[0];
       const { count: presentToday } = await supabase
         .from("attendance").select("*", { count: "exact", head: true })
-        .eq("school_id", p?.school_id).eq("date", today).eq("status", "present");
+        .eq("school_id", profile.school_id).eq("date", today).eq("status", "present");
 
       const { count: absentToday } = await supabase
         .from("attendance").select("*", { count: "exact", head: true })
-        .eq("school_id", p?.school_id).eq("date", today).eq("status", "absent");
+        .eq("school_id", profile.school_id).eq("date", today).eq("status", "absent");
 
       const { count: truancyAlerts } = await supabase
-        .from("truancy_flags").select("*", { count: "exact", head: true })
-        .eq("school_id", p?.school_id).eq("resolved", false);
+        .from("clinical_alerts").select("*", { count: "exact", head: true })
+        .eq("school_id", profile.school_id)
+        .neq("status", "resolved");
 
       const total = (presentToday || 0) + (absentToday || 0);
       const rate = total > 0 ? Math.round((presentToday || 0) / total * 100) : 0;
@@ -76,7 +81,7 @@ export default function DashboardPage() {
       setLoading(false);
     }
     load();
-  }, [router, supabase]);
+  }, [router]);
 
   if (loading) {
     return (
@@ -121,13 +126,13 @@ export default function DashboardPage() {
               className="p-3 rounded-lg bg-neon-pink/5 border border-neon-pink/20 text-xs text-neon-pink font-medium hover:bg-neon-pink/10 transition-all">
               Health Records
             </button>
-            <button onClick={() => router.push("/dashboard/truancy-ai")}
+            <button onClick={() => router.push("/learners")}
               className="p-3 rounded-lg bg-neon-purple/5 border border-neon-purple/20 text-xs text-neon-purple font-medium hover:bg-neon-purple/10 transition-all">
-              AI Insights
+              Learner Hub
             </button>
-            <button onClick={() => router.push("/dashboard/auto-grading")}
+            <button onClick={() => router.push("/billing")}
               className="p-3 rounded-lg bg-neon-green/5 border border-neon-green/20 text-xs text-neon-green font-medium hover:bg-neon-green/10 transition-all">
-              Auto Grading
+              Billing Desk
             </button>
           </div>
         </div>

@@ -52,6 +52,12 @@ export default function Home() {
           <Link href="/clinic" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neon-pink/10 text-neon-pink border border-neon-pink/30 text-xs font-medium hover:bg-neon-pink/20 transition-all">
             Clinic <ChevronRight size={14} />
           </Link>
+          <Link href="/learners" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neon-purple/10 text-neon-purple border border-neon-purple/30 text-xs font-medium hover:bg-neon-purple/20 transition-all">
+            Learners <ChevronRight size={14} />
+          </Link>
+          <Link href="/billing" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neon-amber/10 text-neon-amber border border-neon-amber/30 text-xs font-medium hover:bg-neon-amber/20 transition-all">
+            Billing <ChevronRight size={14} />
+          </Link>
         </div>
 
         <div className="mb-16">
